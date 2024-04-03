@@ -8,53 +8,53 @@ function App() {
   const [labels, setLabels] = useState('');
   const [prompt, setPrompt] = useState('');
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false); // Loading state
-  const [currentAction, setCurrentAction] = useState(null); // Track current action
+  const [loading, setLoading] = useState(false); 
+  const [currentAction, setCurrentAction] = useState(null); 
 
-  const baseURL = 'https://4abd-34-86-181-216.ngrok-free.app'; // Base URL of your backend
+  const baseURL = 'https://4abd-34-86-181-216.ngrok-free.app';
 
   const handleSentiment = async () => {
     try {
-      setLoading(true); // Start loading
-      setCurrentAction('sentiment'); // Set current action
-      setResult(null); // Reset previous result
+      setLoading(true); 
+      setCurrentAction('sentiment'); 
+      setResult(null); 
       const response = await axios.post(`${baseURL}/api/sentiment`, { text });
       setResult(response.data);
-      scrollToResults(); // Scroll to results
+      scrollToResults(); 
     } catch (error) {
       console.error('Error analyzing sentiment:', error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
   
   const handleZeroShot = async () => {
     try {
-      setLoading(true); // Start loading
-      setCurrentAction('zeroShot'); // Set current action
-      setResult(null); // Reset previous result
+      setLoading(true); 
+      setCurrentAction('zeroShot'); 
+      setResult(null); 
       const response = await axios.post(`${baseURL}/api/zero_shot`, { text: text2, labels: labels.split(',') });
       setResult(response.data);
-      scrollToResults(); // Scroll to results
+      scrollToResults();
     } catch (error) {
       console.error('Error classifying:', error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
   
   const handleTextGeneration = async () => {
     try {
-      setLoading(true); // Start loading
-      setCurrentAction('textGeneration'); // Set current action
-      setResult(null); // Reset previous result
+      setLoading(true); 
+      setCurrentAction('textGeneration'); 
+      setResult(null); 
       const response = await axios.post(`${baseURL}/api/text_generation`, { prompt });
       setResult(response.data);
-      scrollToResults(); // Scroll to results
+      scrollToResults(); 
     } catch (error) {
       console.error('Error generating text:', error);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
   
@@ -133,7 +133,7 @@ function App() {
     <div className="App">
       <h1>Transformer Playground</h1>
 
-      {/* Sentiment Analysis */}
+
       <div>
         <h2>Sentiment Analysis</h2>
         <textarea
@@ -146,7 +146,6 @@ function App() {
         <button onClick={handleSentiment}>Analyze Sentiment</button>
       </div>
 
-      {/* Zero-shot Classification */}
       <div>
         <h2>Zero-shot Classification</h2>
         <textarea
@@ -167,7 +166,6 @@ function App() {
         <button onClick={handleZeroShot}>Classify</button>
       </div>
 
-      {/* Text Generation */}
       <div>
         <h2>Text Generation</h2>
         <input
@@ -181,11 +179,9 @@ function App() {
         <button onClick={handleTextGeneration}>Generate Text</button>
       </div>
 
-      {/* Loading Indicator */}
       {loading && <div className="loader"></div>}
 
       <div id="results">
-        {/* Display Result */}
         {renderResult()}
       </div>
 
