@@ -14,6 +14,7 @@ function App() {
   const baseURL = process.env.REACT_APP_BASE_URL;
 
   const handleSentiment = async () => {
+    if (text.trim() === '') return; // Check if text input is empty
     try {
       setLoading(true); 
       setCurrentAction('sentiment'); 
@@ -29,6 +30,7 @@ function App() {
   };
   
   const handleZeroShot = async () => {
+    if (text2.trim() === '' || labels.trim() === '') return; // Check if text or labels input is empty
     try {
       setLoading(true); 
       setCurrentAction('zeroShot'); 
@@ -44,6 +46,7 @@ function App() {
   };
   
   const handleTextGeneration = async () => {
+    if (prompt.trim() === '') return; // Check if prompt input is empty
     try {
       setLoading(true); 
       setCurrentAction('textGeneration'); 
@@ -143,7 +146,7 @@ function App() {
           placeholder="Enter text for sentiment analysis"
         ></textarea>
         <br />
-        <button onClick={handleSentiment}>Analyze Sentiment</button>
+        <button onClick={handleSentiment} disabled={!text.trim()}>Analyze Sentiment</button>
       </div>
 
       <div>
@@ -163,7 +166,7 @@ function App() {
           placeholder="Enter labels (comma-separated)"
         />
         <br />
-        <button onClick={handleZeroShot}>Classify</button>
+        <button onClick={handleZeroShot} disabled={!text2.trim() || !labels.trim()}>Classify</button>
       </div>
 
       <div>
@@ -176,7 +179,7 @@ function App() {
           placeholder="Enter prompt for text generation"
         />
         <br />
-        <button onClick={handleTextGeneration}>Generate Text</button>
+        <button onClick={handleTextGeneration} disabled={!prompt.trim()}>Generate Text</button>
       </div>
 
       {loading && <div className="loader"></div>}
