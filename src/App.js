@@ -11,7 +11,7 @@ function App() {
   const [loading, setLoading] = useState(false); 
   const [currentAction, setCurrentAction] = useState(null); 
 
-  const baseURL = 'https://4abd-34-86-181-216.ngrok-free.app';
+  const baseURL = process.env.REACT_APP_BASE_URL;
 
   const handleSentiment = async () => {
     try {
